@@ -9,6 +9,35 @@ package modelo;
  *
  * @author tatia
  */
-public class EmpleadoBaseMasComision {
+public class EmpleadoBaseMasComision extends EmpleadoPorComision{
+    private double salarioBase;
     
+    public EmpleadoBaseMasComision(String nombre, String primerApellido, String nss,
+            double ventas, double tarifa, double salario){
+        super(nombre, primerApellido, nss, ventas, tarifa);
+        setEstablecerSalarioBase(salario);
+    }    
+        public void setEstablecerSalarioBase(double salario){
+            if(salario >= 0.0){
+                salarioBase = salario;
+            }
+            else
+                throw new IllegalArgumentException("El salario base debe ser >= 0");
+        
+    }
+        
+    public double getSalarioBase(){
+        return salarioBase;
+    }
+
+    @Override
+    public double ingresos(){
+    return getSalarioBase() + super.ingresos();
+    }
+
+    @Override
+    public String toString(){
+    return String.format("%s %s; %s: $%,.2f",
+            "con salario base", super.toString(), "salario base", getSalarioBase());
+    }
 }
